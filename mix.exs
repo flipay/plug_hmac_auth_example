@@ -36,7 +36,7 @@ defmodule PlugHmacAuthExample.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:plug_hmac_auth, path: "../plug_hmac_auth"},
+      {:plug_hmac_auth, "~> 0.1.0"},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false}
     ]
   end

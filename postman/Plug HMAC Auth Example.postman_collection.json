@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "15c85a03-a21d-4a52-9b90-c0230c0a7744",
+		"name": "Plug HMAC Auth Example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Show",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0bffe3f1-79cd-4a0f-834b-5bdf43958b70",
+						"exec": [
+							"const env_secret_key = 'access_secret_key'",
+							"const env_signature = 'access_signature'",
+							"",
+							"var method = request.method",
+							"var payload = method == 'GET' ? payload = request.url.split('?')[1] : request.data",
+							"var secret_key = pm.environment.get(env_secret_key)",
+							"var hmac = CryptoJS.HmacSHA512(payload, secret_key)",
+							"var signature = CryptoJS.enc.Base64.stringify(hmac)",
+							"pm.environment.set(env_signature, signature)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-id",
+						"value": "DVyRzUyS27fiBnpsdGBzOYH1seo3EVNodbL2Hb1njNJVC5QtT5DfmpzpqofBHnZo",
+						"type": "text"
+					},
+					{
+						"key": "x-access-signature",
+						"value": "{{access_signature}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/private",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"private"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
